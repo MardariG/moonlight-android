@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextureView
+        android:id="@+id/surface"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/settingsPanel"
+        android:background="#80000000"
+        android:visibility="gone" >
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:text="Size"
+                android:gravity="center" />
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/sizeSeek"
+                android:max="100"
+                android:progress="50"/>
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:text="Distortion"
+                android:gravity="center" />
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/distSeek"
+                android:max="500"
+                android:progress="81"/>
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:text="Wrap Sides"
+                android:gravity="center" />
+            <CheckBox
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:id="@+id/wrapCheckbox"
+                android:checked="true"/>
+        </LinearLayout>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:text="Single"
+                android:gravity="center" />
+            <CheckBox
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:id="@+id/singleView"
+                android:checked="false"/>
+        </LinearLayout>
+    </LinearLayout>
+    <Button
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/ic_settings"
+        android:id="@+id/settingsButton"/>
+</RelativeLayout>

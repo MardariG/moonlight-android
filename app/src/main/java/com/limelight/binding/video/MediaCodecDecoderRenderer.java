@@ -20,6 +20,7 @@ import android.media.MediaCodec.BufferInfo;
 import android.media.MediaCodec.CodecException;
 import android.os.Build;
 import android.util.Range;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 
 public class MediaCodecDecoderRenderer extends VideoDecoderRenderer {
@@ -49,7 +50,7 @@ public class MediaCodecDecoderRenderer extends VideoDecoderRenderer {
     private boolean refFrameInvalidationActive;
     private int initialWidth, initialHeight;
     private int videoFormat;
-    private SurfaceHolder renderTarget;
+    private Surface renderTarget;
     private volatile boolean stopping;
     private CrashListener crashListener;
     private boolean reportedCrash;
@@ -117,7 +118,7 @@ public class MediaCodecDecoderRenderer extends VideoDecoderRenderer {
         return decoderInfo;
     }
 
-    public void setRenderTarget(SurfaceHolder renderTarget) {
+    public void setRenderTarget(Surface renderTarget) {
         this.renderTarget = renderTarget;
     }
 
@@ -316,7 +317,7 @@ public class MediaCodecDecoderRenderer extends VideoDecoderRenderer {
         }
 
         try {
-            videoDecoder.configure(videoFormat, renderTarget.getSurface(), null, 0);
+            videoDecoder.configure(videoFormat, renderTarget , null, 0);
             videoDecoder.setVideoScalingMode(MediaCodec.VIDEO_SCALING_MODE_SCALE_TO_FIT);
 
             if (USE_FRAME_RENDER_TIME && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -508,9 +509,9 @@ public class MediaCodecDecoderRenderer extends VideoDecoderRenderer {
         }
 
         // Interrupt the threads
-        for (int i = 0; i < runningThreads.length; i++) {
-            if (runningThreads[i] != null) {
-                runningThreads[i].interrupt();
+        for (Thread runningThread : runningThreads) {
+            if (runningThread != null) {
+                runningThread.interrupt();
             }
         }
 
@@ -520,11 +521,12 @@ public class MediaCodecDecoderRenderer extends VideoDecoderRenderer {
     private void stopSpinnerThreads() {
         // Signal and wait for the threads to stop
         Thread[] runningThreads = signalSpinnerStop();
-        for (int i = 0; i < runningThreads.length; i++) {
-            if (runningThreads[i] != null) {
+        for (Thread runningThread : runningThreads) {
+            if (runningThread != null) {
                 try {
-                    runningThreads[i].join();
-                } catch (InterruptedException ignored) { }
+                    runningThread.join();
+                } catch (InterruptedException ignored) {
+                }
             }
         }
     }

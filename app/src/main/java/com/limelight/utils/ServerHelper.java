@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.limelight.Game;
+import com.limelight.GameVr;
 import com.limelight.R;
 import com.limelight.binding.PlatformBinding;
 import com.limelight.computers.ComputerManagerService;
@@ -24,16 +24,16 @@ public class ServerHelper {
 
     public static Intent createStartIntent(Activity parent, NvApp app, ComputerDetails computer,
                                            ComputerManagerService.ComputerManagerBinder managerBinder) {
-        Intent intent = new Intent(parent, Game.class);
-        intent.putExtra(Game.EXTRA_HOST, getCurrentAddressFromComputer(computer));
-        intent.putExtra(Game.EXTRA_APP_NAME, app.getAppName());
-        intent.putExtra(Game.EXTRA_APP_ID, app.getAppId());
-        intent.putExtra(Game.EXTRA_APP_HDR, app.isHdrSupported());
-        intent.putExtra(Game.EXTRA_UNIQUEID, managerBinder.getUniqueId());
-        intent.putExtra(Game.EXTRA_STREAMING_REMOTE,
+        Intent intent = new Intent(parent, GameVr.class);
+        intent.putExtra(GameVr.EXTRA_HOST, getCurrentAddressFromComputer(computer));
+        intent.putExtra(GameVr.EXTRA_APP_NAME, app.getAppName());
+        intent.putExtra(GameVr.EXTRA_APP_ID, app.getAppId());
+        intent.putExtra(GameVr.EXTRA_APP_HDR, app.isHdrSupported());
+        intent.putExtra(GameVr.EXTRA_UNIQUEID, managerBinder.getUniqueId());
+        intent.putExtra(GameVr.EXTRA_STREAMING_REMOTE,
                 computer.reachability != ComputerDetails.Reachability.LOCAL);
-        intent.putExtra(Game.EXTRA_PC_UUID, computer.uuid.toString());
-        intent.putExtra(Game.EXTRA_PC_NAME, computer.name);
+        intent.putExtra(GameVr.EXTRA_PC_UUID, computer.uuid.toString());
+        intent.putExtra(GameVr.EXTRA_PC_NAME, computer.name);
         return intent;
     }
 
